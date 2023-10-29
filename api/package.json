@@ -1,0 +1,25 @@
+{
+  "name": "opa-api",
+  "version": "1.0.0",
+  "description": "An example opa-api implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flufsor/CSA3-OPA.git"
+  },
+  "author": "Tom Goedemé",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flufsor/CSA3-OPA/issues"
+  },
+  "homepage": "https://github.com/flufsor/CSA3-OPA#readme",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jose": "^4.15.4"
+  }
+}
