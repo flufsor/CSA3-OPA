@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@angular/cli": "^16.2.6"
+    "@angular/cli": "^16.2.6",
+    "oidc-client-ts": "^2.4.0"
   }
 }
