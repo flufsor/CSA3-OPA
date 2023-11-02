@@ -15,7 +15,6 @@ export class ApiService {
   public callApi(): Promise<any> {
     return this.authService.getUser().then((user: User|null) => {
       if (user && user.access_token) {
-        console.log("Token: ", user.access_token)
         return this._callApi(user.access_token);
       } else if (user) {
         return this.authService.renewToken().then((user: User|null) => {
@@ -35,17 +34,17 @@ export class ApiService {
       Authorization: `Bearer ${token}`
     });
 
-    return this.httpClient.get(environment.apiRoot + 'messages', { headers })
+    return this.httpClient.get(environment.apiRoot + 'protected', { headers })
       .toPromise()
       .catch((result: HttpErrorResponse) => {
-/*         if (result.status === 401) {
+         if (result.status === 401) {
           return this.authService.renewToken().then(user => {
             if(user != null){
               return this._callApi(user.access_token);
             }
 
           });
-        } */
+        }
         throw result;
       });
   }

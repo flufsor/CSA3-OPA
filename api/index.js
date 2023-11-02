@@ -27,24 +27,18 @@ app.use((err, req, res, next) => {
 //         cache: true,
 //         rateLimit: true,
 //         jwksRequestsPerMinute: 5,
-//         jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+//         jwksUri: `${process.env.AUTH0_ISSUER}/.well-known/jwks.json`
 //     }),
 //     // validate aud, iss claims
-//     audience: `${process.env.AUTH0_AUDIENCE}`,
-//     issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+//     audience: process.env.AUTH0_AUDIENCE,
+//     issuer: process.env.AUTH0_ISSUER,
 //     algorithms: ["RS256"]
 // });
 
 let verifyAccessToken = auth({
-    audience: 'https://c7wnrl4p-3000.euw.devtunnels.ms',
-    issuerBaseURL: 'https://flufap.eu.auth0.com/',
-    tokenSigningAlg: 'RS256'
+    audience: process.env.AUTH0_AUDIENCE,
+    issuerBaseURL: process.env.AUTH0_ISSUER,
 });
-
-let logClaims = (token) => {
-    console.log (jwt_decode(token));
-}
-  
 
 app.get('/', (req, res) => {
     res.send('Hello from API');
@@ -55,11 +49,9 @@ app.get('/messages', (req, res) => {
 })
 
 app.get('/protected', verifyAccessToken, (req, res) => {
-    if (!req.auth.admin) return res.sendStatus(401);
-    res.send('Hello from protected route');
+    console.log(req.auth.payload);
+    res.json({ "result": 'Hello from protected route' });
 });
-
-
 
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
