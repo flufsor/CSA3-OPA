@@ -15,11 +15,14 @@ export class AuthService {
       client_id: environment.auth0_client_id,
       redirect_uri: environment.auth0_redirect_uri,
       response_type: 'code',
-      scope: 'openid profile email',
+      scope: 'openid profile email read:messages',
+      audience: "https://c7wnrl4p-3000.euw.devtunnels.ms",
       post_logout_redirect_uri: environment.auth0_post_logout_redirect_uri,
       metadata: {
         authorization_endpoint: `${environment.auth0_authority}/authorize`,
+        audience: "https://c7wnrl4p-3000.euw.devtunnels.ms",
         token_endpoint: `${environment.auth0_authority}/oauth/token`,
+        jwks_uri: "https://flufap.eu.auth0.com/.well-known/jwks.json",
         end_session_endpoint: `${environment.auth0_authority}/v2/logout?returnTo=${encodeURIComponent(environment.auth0_post_logout_redirect_uri)}&client_id=${environment.auth0_client_id}`
       }
     };

@@ -17,9 +17,16 @@
   },
   "homepage": "https://github.com/flufsor/CSA3-OPA#readme",
   "dependencies": {
+    "@build-security/opa-express-middleware": "^0.0.3",
     "axios": "^1.5.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "jose": "^4.15.4"
+    "express-jwt": "^8.4.1",
+    "express-jwt-authz": "^2.4.1",
+    "express-oauth2-jwt-bearer": "^1.6.0",
+    "jwks-rsa": "^3.1.0",
+    "jwt-decode": "^4.0.0",
+    "nodemon": "^3.0.1"
   }
 }

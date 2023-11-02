@@ -62,14 +62,12 @@ auth0_redirect_uri: 'https://6j6z80lj-4200.euw.devtunnels.ms/login/callback', //
 auth0_post_logout_redirect_uri: 'https://6j6z80lj-4200.euw.devtunnels.ms', // e.g. https://mydomain.com
 ```
 
-
-
-
 ## Login procedure
 
 Voor de loginprocedure maken we gebruik van een service in Angular: de 
 
 ### Configuration
+
 Enter the correct credentials for AUTH0 in the `csaMessageApp/src/environments/environment.ts` file.
 
 ## OPA
