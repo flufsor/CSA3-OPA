@@ -6,11 +6,6 @@ default allow := false
 
 allow {
     jwt_verified
-    input.attributes.request.http.headers.drinkType == "Fristi"
-}
-
-allow {
-    jwt_verified
     claims_verified.age >= 18
 }
 
