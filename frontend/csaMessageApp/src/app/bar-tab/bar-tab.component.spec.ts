@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessagesComponent } from './messages.component';
+import { BarTabComponent } from './bar-tab.component';
 
-describe('MessagesComponent', () => {
-  let component: MessagesComponent;
-  let fixture: ComponentFixture<MessagesComponent>;
+describe('BarTabComponent', () => {
+  let component: BarTabComponent;
+  let fixture: ComponentFixture<BarTabComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MessagesComponent]
+      declarations: [BarTabComponent]
     });
-    fixture = TestBed.createComponent(MessagesComponent);
+    fixture = TestBed.createComponent(BarTabComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

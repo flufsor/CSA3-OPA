@@ -4,14 +4,13 @@ import { User } from 'oidc-client-ts';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 
-
 @Injectable({
   providedIn: 'root' 
 })
 export class ApiService {
   constructor(private httpClient: HttpClient, private authService: AuthService) {}
 
-  public getApiRoute(route: string): Promise<any> {
+  public async getApiRoute(route: string): Promise<any> {
     return this.getAccessToken().then((accessToken: string) => {
       const headers = new HttpHeaders({
         Accept: 'application/json',
@@ -36,21 +35,20 @@ export class ApiService {
     });
   }
 
-  private getAccessToken(): Promise<string> {
-    return this.authService.getUser().then((user: User | null) => {
-      if (user?.access_token) {
-        return user.access_token;
-      } else if (user) {
-        return this.authService.renewToken().then((renewedUser: User | null) => {
-          if (renewedUser) {
-            return renewedUser.access_token;
-          } else {
-            throw new Error('user is not logged in');
-          }
-        });
-      } else {
-        throw new Error('user is not logged in');
-      }
-    });
+  private async getAccessToken(): Promise<string> {
+    const user = await this.authService.getUser();
+    if (user?.access_token) {
+      return user.access_token;
+    } else if (user) {
+      return this.authService.renewToken().then((renewedUser: User | null) => {
+        if (renewedUser) {
+          return renewedUser.access_token;
+        } else {
+          throw new Error('user is not logged in');
+        }
+      });
+    } else {
+      throw new Error('user is not logged in');
+    }
   }
 }

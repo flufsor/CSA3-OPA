@@ -3,14 +3,14 @@
         Cybersecurity Advanced: assigment 3
     </h1>
 </div>
-<div>
-    <button (click)='onLogin()'>Login</button>
-    <button (click)='onCallAPI()'>Call API</button>
-    <button (click)='onRenewToken()'>Renew Token</button>
-    <button (click)='onLogout()'>Logout</button>
-</div>
 
+<div *ngIf="!currentUser">
+    <h2>Hi, please login</h2>
+    <button (click)='onLogin()'>Login</button>
+</div>
 <div *ngIf="currentUser">
     <h2>Hi, {{currentUser.profile.nickname}}</h2>
-    <pre>{{currentUserJson}}</pre>
+    <button (click)='onRenewToken()'>Renew Token</button>
+    <button (click)='onLogout()'>Logout</button>
+    <app-bar-tab></app-bar-tab>
 </div>

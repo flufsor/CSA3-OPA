@@ -1,0 +1,24 @@
+<p>Welkom to our bar-tab :D ONLY FRISTI FOR -18!</p>
+
+<button (click)="addDrink('Fristi')">Add Fristi</button>
+<button (click)="addDrink('Champagne')">Add Champagne</button>
+<button (click)="addDrink('Hoegaarden')">Add Hoegaarden</button>
+<button (click)="addDrink('foo')">Add some invalid drink</button>
+
+<table class="drinks-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Alcoholic</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    <tr *ngFor="let drink of drinks">
+        <td>{{ drink.name }}</td>
+        <td>{{ drink.price.toFixed(2) }}</td>
+        <td>{{ drink.isAlcoholic ? "yes" : "no"}}</td>
+    </tr>
+    </tbody>
+</table>

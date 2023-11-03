@@ -2,19 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from "../auth.service";
 import { ApiService } from '../api.service';
-
 import { User } from 'oidc-client-ts';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
-
 })
 
 export class HomeComponent implements OnInit {
-  constructor(public authService: AuthService,public apiService: ApiService, private _router: Router) {
-
-  }
+  constructor(public authService: AuthService, public apiService: ApiService) { }
 
   get currentUserJson(): string {
     return JSON.stringify(this.currentUser, null, 2);
@@ -25,6 +22,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUser().then(user => {
       this.currentUser = user;
+      if (user) console.log(this.currentUserJson)
     })
   }
 
@@ -33,17 +31,17 @@ export class HomeComponent implements OnInit {
   }
 
   public onCallAPI() {
-     this.apiService.getApiRoute("protected").then(result => {
-       console.log('API Result: ' + JSON.stringify(result));
+    this.apiService.getApiRoute("protected").then(result => {
+      console.log('API Result: ' + JSON.stringify(result));
     });
   }
-  
+
   public onRenewToken() {
     this.authService.renewToken()
       .then(user => {
         this.currentUser = user;
       });
-      console.log("token:" + this.currentUser?.access_token);
+    console.log("token:" + this.currentUser?.access_token);
 
   }
 
