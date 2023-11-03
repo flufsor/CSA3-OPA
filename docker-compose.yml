@@ -1,12 +1,8 @@
 version: '3'
 
 services:
-  opa-api:
-    build: ./api/
+  opa:
+    image: openpolicyagent/opa
+    command: ["run", "--server", "--addr", ":8181"]
     ports:
-     - "3000:3000"
-    networks:
-      - opa-net
-
-networks:
-  opa-net:
+     - "8181:8181"
