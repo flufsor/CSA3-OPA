@@ -33,11 +33,10 @@ export class HomeComponent implements OnInit {
   }
 
   public onCallAPI() {
-     this.apiService.callApi().then(result => {
+     this.apiService.getApiRoute("protected").then(result => {
        console.log('API Result: ' + JSON.stringify(result));
     });
   }
-
   
   public onRenewToken() {
     this.authService.renewToken()

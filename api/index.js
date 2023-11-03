@@ -50,7 +50,7 @@ app.get('/messages', (req, res) => {
 
 app.get('/protected', verifyAccessToken, (req, res) => {
     console.log(req.auth.payload);
-    res.json({ "result": 'Hello from protected route' });
+    res.json(FakeData.messages);
 });
 
 app.listen(3000, () => {
