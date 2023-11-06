@@ -1,7 +1,7 @@
 # Cybersecurity Advanced Opdracht 3: Get to know advanced IAM practices
 *Door Tom Goedemé en Niels van de Ginste*
 
-Repository: [https://github.com/flufsor/CSA3-OPA](https://github.com/flufsor/CSA3-OPA "https://github.com/flufsor/CSA3-OPA")
+Repository: [https://github.com/flufsor/CSA3-OPA](https://github.com/flufsor/CSA3-OPA)
 ## Threat analysis
 
 Hieronder kan u onze threat analysis terugvinden van onze applicatie.
