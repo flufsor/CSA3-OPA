@@ -12,7 +12,7 @@ export interface Drink {
 export class BarTabService {
   private _drinks: Drink[] = [];
 
-  constructor(private apiService:ApiService ) {
+  constructor(private apiService: ApiService) {
     this.getBarTabs();
   }
 
@@ -24,7 +24,6 @@ export class BarTabService {
       }
       return this._drinks;
     } catch (error) {
-      console.error('Error fetching bar tabs:', error);
       return this._drinks;
     }
   }
@@ -37,7 +36,6 @@ export class BarTabService {
       }
       return this._drinks;
     } catch (error: any) {
-        console.error('Error adding drink:', error.error.message);
       return this._drinks;
     }
   }

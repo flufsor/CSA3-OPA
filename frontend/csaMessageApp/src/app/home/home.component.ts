@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUser().then(user => {
       this.currentUser = user;
-      if (user) console.log(this.currentUserJson)
     })
   }
 
@@ -31,9 +30,7 @@ export class HomeComponent implements OnInit {
   }
 
   public onCallAPI() {
-    this.apiService.getApiRoute("protected").then(result => {
-      console.log('API Result: ' + JSON.stringify(result));
-    });
+    this.apiService.getApiRoute("protected")
   }
 
   public onRenewToken() {
@@ -41,8 +38,6 @@ export class HomeComponent implements OnInit {
       .then(user => {
         this.currentUser = user;
       });
-    console.log("token:" + this.currentUser?.access_token);
-
   }
 
   public onLogout() {

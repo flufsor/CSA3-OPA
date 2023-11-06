@@ -23,7 +23,6 @@ export class AuthService {
         end_session_endpoint: `${environment.auth0_authority}/v2/logout?returnTo=${encodeURIComponent(environment.auth0_post_logout_redirect_uri)}&client_id=${environment.auth0_client_id}`
       },
       extraQueryParams: {
-        // request audience for access token
         "audience": environment.auth0_api_audience,
       },
     };

@@ -20,10 +20,8 @@ export class BarTabComponent {
         this.drinks = data;
       })
       .catch((error: any) => {
-        console.error('Error fetching bar tabs:', error);
         this.drinks = [];
       });
-      console.log(this.drinks)
   }
 
   public addDrink(drink: string) {
@@ -32,7 +30,6 @@ export class BarTabComponent {
         this.drinks = data;
       })
       .catch((error: any) => {
-        console.error('Error adding drink:', error);
       });
   }
 }
