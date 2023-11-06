@@ -1,0 +1,15 @@
+<div style="text-align:center">
+    <h1>
+        Cybersecurity Advanced: assigment 3
+    </h1>
+</div>
+
+<div *ngIf="!currentUser">
+    <h2>Hi, please login</h2>
+    <button (click)='onLogin()'>Login</button>
+</div>
+<div *ngIf="currentUser">
+    <h2>Hi, {{currentUser.profile.nickname}}</h2>
+    <button (click)='onLogout()'>Logout</button>
+    <app-bar-tab></app-bar-tab>
+</div>
