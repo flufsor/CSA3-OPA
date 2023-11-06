@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 
 let validateByOpa = (req, res, next) => {
-    const url = 'http://localhost:8181/v1/data/authz/allow';
+    const url = 'http://opa:8181/v1/data/authz/allow';
     const data = {
         input: {
             attributes: {
