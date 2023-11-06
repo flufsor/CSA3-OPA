@@ -86,7 +86,7 @@ Zoals u kan zien op het bovenstaande codeblok, wordt er gebruik gemaakt van een 
 
 Dit bestand bevat de volgende environment variabelen:
 
-```json
+```js
 auth0_authority: 'https://flufap.eu.auth0.com',
 auth0_client_id: 'iysO4wHMr5oQF7V3F7gQX4Y8rJSHyCol',
 auth0_redirect_uri: 'https://c7wnrl4p-4200.euw.devtunnels.ms/login/callback',
