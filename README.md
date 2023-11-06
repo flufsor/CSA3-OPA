@@ -1,10 +1,7 @@
 # Cybersecurity Advanced Opdracht 3: Get to know advanced IAM practices
-*By Tom Goedemé en Niels van de Ginste*
+*Door Tom Goedemé en Niels van de Ginste*
 
-Demo credentials:
-- User: jappie@jappie.jappie
-- Password: P@ssw0rd
-
+Repository: [https://github.com/flufsor/CSA3-OPA](https://github.com/flufsor/CSA3-OPA)
 ## Threat analysis
 
 Hieronder kan u onze threat analysis terugvinden van onze applicatie.
