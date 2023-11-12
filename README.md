@@ -11,9 +11,9 @@ Hieronder kan u onze threat analysis terugvinden van onze applicatie.
 
 ## Frontend
 
-Als frontend hebben we een eenvoudige bartab applicatie gemaakt. We hebben gebruik gemaakt van Angular om onze SPA applicatie op te bouwen.
+Als frontend hebben we een eenvoudige bartab applicatie gemaakt waar de klanten hun rekening kunnen bijhouden. We hebben gebruik gemaakt van Angular om onze SPA op te bouwen.
 
-Angular toont andere componenten op basis de loginstatus van de gebruiker. Wanneer de gebruiker nog niet is inglog, wordt een login knop getoond.
+Angular toont andere componenten op basis de loginstatus van de gebruiker. Wanneer de gebruiker nog niet is ingelogd, wordt een login knop getoond.
 
 ![](images/Login.png)
 
@@ -21,24 +21,24 @@ Deze knop verwijst naar een Auth0 login pagina:
 
 ![](images/auth0.png)
 
-Nadat de gebruiker zich heeft ingelogd, krijgt hij verschillende opties te zien:
+Nadat de gebruiker zich heeft geauthenticeerd, krijgt hij verschillende opties te zien:
 
 - Logout: knop om uit te loggen
-- Add Fristi, Champage, Hoegaarden en some invalid drink
+- Add Fristi, Champage en Hoegaarden
 
 ![](images/loggedIn.png)
 
-Wanneer de gebruiker één van de drankjes toevoegt, wordt deze aan de bartab toegevoegd.
+Wanneer de gebruiker één van de drankjes toevoegt, verschijnt deze onderaan bij de bartab (indien de gebruiker hiervoor geautoriseerd is).
 
-![](images/fristAdded.png)
+![](images/FristiAdded.png)
 
 ## Authenticatie
 
-In deze sectie bespreken we alle logica die plaatsvindt in de Frontend. Zo leggen we uit op welke manier de loginprocedure is geïmplementeerd en hoe de library `oidc-client-ts` in de frontend is geïntegreerd.
+In deze sectie bespreken we de componenten en de code die werden gebruikt voor de authenticatie. Zo leggen we uit op welke manier de loginprocedure is geïmplementeerd en hoe de library `oidc-client-ts` in de frontend is geïntegreerd.
 
-### Oidc-client-ts
+### OIDC-client-ts
 
-De library maakt gebruik van een `userManager` object. Dit object houdt de status bij van de gebruiker en bevat alle functies om te authenticeren via de openid-connect authenticatieflow.
+De OIDC-client-ts library maakt gebruik van een `userManager` object. Dit object houdt de status bij van de gebruiker en bevat alle functies om hem authenticeren via de openid-connect authenticatieflow.
 
 #### Config
 
@@ -72,27 +72,12 @@ const config = {
 - response_type: het formaat van het antwoord
 - scope: bepaalt welke user attributen worden teruggegeven in het token wanneer een gebruiker zich heeft geauthenticeerd
 - post_logout_redirect_url: de URL naar waar gesurft moet worden nadat de user zich heeft afgemeld
-- metadata: extra attribuut dat extra info kan bevatten. Voor ons zijn dit de volgende velden:
-	- authorization endpoint: due url waar naar gesurft moet worden om met de authenticatieserver te communiceren
+- metadata: extra attribuut dat info kan bevatten. Voor ons zijn dit de volgende parameters:
+	- authorization endpoint: de URL waar naar gesurft moet worden om met de authenticatieserver te communiceren
 	- token_endpoint: de URL waarmee gecommuniceerd moet worden om het token op te vragen
 	- end_session_endpoint: de url waarnaar verwezen moet worden wanneer een gebruiker wilt uitloggen
 - extraQueryParams
-	- audience: deze parameter zal worden gebruikt worden voor de accesstoken correct te laten genereren
-
-Zoals u kan zien op het bovenstaande codeblok, wordt er gebruik gemaakt van een environment file. Deze file is terug te vinden op de volgende locatie: `frontend/csaMessageApp/src/environments/environment.ts`
-
-Dit bestand bevat de volgende environment variabelen:
-
-```js
-auth0_authority: 'https://flufap.eu.auth0.com',
-auth0_client_id: 'iysO4wHMr5oQF7V3F7gQX4Y8rJSHyCol',
-auth0_redirect_uri: 'https://c7wnrl4p-4200.euw.devtunnels.ms/login/callback',
-auth0_post_logout_redirect_uri: 'https://c7wnrl4p-4200.euw.devtunnels.ms',
-auth0_api_audience: 'flufapi',
-apiRoot: 'https://c7wnrl4p-3000.euw.devtunnels.ms/',
-```
-
-Deze variabelen kan u aanpassen om de applicatie compatibel te maken met uw Auth0 provider.
+	- audience: deze parameter zal gebruikt worden om het accesstoken correct te genereren
 
 ## API
 
@@ -131,23 +116,24 @@ Als eerst dient deze service als Policy Decision Point. Onze API vraagt aan OPA 
 
 #### PAP
 
-Naast PDP is OPA ook onze Policy Administration Point. Dit is de service die alle regels bijhoudt waarop de PDP zich kan baseren. Tijdens het opzetten van de service geven wij deze regels aan OPA.
+Naast PDP is OPA ook onze Policy Administration Point. Dit is de service die alle regels bijhoudt waarop de PDP zich kan baseren. Tijdens het opzetten van de service geven wij deze regels mee aan OPA.
 
 ## Opstarten van de applicatie
 
 ### Benodigdheden
 #### Auth0
 
-Onze applicatie maakt gebruik van Auth0 ter authenticatie? Dit betekent dat de gebruiker moet beschikken over een Auth0 account met daarin de volgende onderdelen in orde gebracht:
+Onze applicatie maakt gebruik van Auth0 ter authenticatie. Dit betekent dat de gebruiker moet beschikken over een Auth0 account met daarin de volgende onderdelen in orde gebracht:
 
 - Een Auth0 applicatie met daarin de callback url en logout url van de lokale app.
 
 ![](images/auth0App.png)
 
-- Een API die wordt gebruikt om de audience correct in te stellen
+- Een API met een correct ingestelde audience.
+
 ![](images/Auth0API.png)
 
-- Testgebruikers met de volgende custom claims:
+- Testgebruikers met de volgende custom claim:
 	- age
 
 ![](images/Auth0User.png)
@@ -164,6 +150,7 @@ exports.onExecutePostLogin = async (event, api) => {
 }
 ```
 
+Deze code zorgt ervoor dat de custom claim van de gebruiker toegevoegd wordt aan het access token. Zonder deze claim, zal de gebruiker zichzelf nooit volwaardig kunnen autoriseren.
 #### Environment variabelen frontend
 
 De frontend applicatie heeft een `environment.ts` bestand nodig in de `frontend/csaMessageApp/src/environments` folder. Hieronder vindt u een korte beschrijving van alle variabelen en een voorbeeld.
@@ -196,7 +183,7 @@ apiRoot: 'http://localhost:3000/',
 
 #### Environment variabelen backend
 
-Deze variabelen worden gebruikt in de docker compose file en worden ingeladen op basis van het volgende `.env` bestand:
+De variabelen voor de API worden gedefinieerd in de docker compose file en worden ingeladen op basis van het volgende `.env` bestand:
 
 Sjabloon environment file:
 ```js
@@ -226,11 +213,11 @@ Als alles goed gaat, zou u de applicatie kunnen bereiken op de volgende url: `ht
 
 Zoals eerder verteld maken we gebruik van Angular als frontend. Dit zorgde echter voor problemen bij het maken van de docker compose file. Na trail and error hebben we een via een geautomatiseerd bouwproces Angular werkende gekregen in de omgeving.
 
-Daarnaast werkt Angular niet goed samen met docker environment variabelen. We hebben jammer genoeg de environments.ts file moeten behouden. De gebruiker moet daarom twee bestanden aanvullen om de applicatie te kunnen starten.
+Daarnaast werkt Angular niet goed samen met docker environment variabelen. We hebben jammer genoeg de environments.ts file moeten behouden. De gebruiker moet daarom twee environment bestanden aanvullen om de applicatie te kunnen starten.
 
 ### Auth0
 
-In het begin van ons project hielden wij ons bezig met de communicatie tussen onze API en Auth0. Er waren echter verschillende problemen om de login- en logoutprocedure correct te laten verlopen. Als eerst waren enkele "endpoint" niet correct meegegeven, wat leidde tot foutmeldingen tijdens het uitloggen.
+In het begin van ons project hielden wij ons bezig met de communicatie tussen onze API en Auth0. Er waren echter verschillende problemen om de login- en logoutprocedure correct te laten verlopen. Als eerst was de "endpoint" niet correct meegegeven, wat leidde tot foutmeldingen tijdens het uitloggen.
 
 Tot slot kregen wij ook geen correcte access tokens, omdat onze audience niet werd meegegeven tijdens het inloggen. Na lang te zoeken en met hulp van mijnheer Boeynaems hebben we via het `extraQuerryParams` veld de audience kunnen meegeven.
 
