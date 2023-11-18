@@ -38,7 +38,7 @@ In deze sectie bespreken we de componenten en de code die werden gebruikt voor d
 
 ### OIDC-client-ts
 
-De OIDC-client-ts library maakt gebruik van een `userManager` object. Dit object houdt de status bij van de gebruiker en bevat alle functies om hem authenticeren via de openid-connect authenticatieflow.
+De OIDC-client-ts library maakt gebruik van een `userManager` object. Dit object houdt de status bij van de gebruiker en bevat alle functies om hem te authenticeren via de openid-connect authenticatieflow.
 
 #### Config
 
@@ -211,7 +211,7 @@ Als alles goed gaat, zou u de applicatie kunnen bereiken op de volgende url: `ht
 
 ### Docker compose
 
-Zoals eerder verteld maken we gebruik van Angular als frontend. Dit zorgde echter voor problemen bij het maken van de docker compose file. Na trail and error hebben we een via een geautomatiseerd bouwproces Angular werkende gekregen in de omgeving.
+Zoals eerder is verteld, maken we gebruik van Angular als frontend. Dit zorgde echter voor problemen bij het maken van de docker compose file. Na trail and error hebben we een via een geautomatiseerd bouwproces Angular werkende gekregen in de omgeving.
 
 Daarnaast werkt Angular niet goed samen met docker environment variabelen. We hebben jammer genoeg de environments.ts file moeten behouden. De gebruiker moet daarom twee environment bestanden aanvullen om de applicatie te kunnen starten.
 
